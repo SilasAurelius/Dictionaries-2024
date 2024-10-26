@@ -19,8 +19,7 @@ while True:
     print("1. open new service ticket.")
     print("2. Update Status of ticket.")
     print("3. Display all tickets.")
-    print("4. Display all tickets by status.")
-    print("5. Quit")
+    print("4. Quit.")
     
     user_input = int(input("Enter numeric selection: "))
     if user_input == 1:
@@ -28,21 +27,19 @@ while True:
         new_issue = input("Enter issue: ").lower()
         new_status = input("Enter status (open/closed): ").lower()
         ticket_number += 1
-        service_tickets[f"Ticket{ticket_number}"] = {"Customer": new_customer, "Issue": new_issue, "Status": new_status}
+        service_tickets[f"Ticket00{ticket_number}"] = {"Customer": new_customer, "Issue": new_issue, "Status": new_status}
         print(service_tickets)
     elif user_input == 2:
         update_ticket = input("Enter ticket number i.e. 'Ticket000' etc.: ")
         update_status = input("Enter status (open/closed): ").lower()
-        if update_ticket and new_customer not in ticket_number:
-            print("Ticket number and/or customer name not found.")
+        if update_ticket not in service_tickets:
+            print("Ticket number not found.")
         else:
-            updated_service_ticket = {f"Ticket{ticket_number}": {"Customer": {new_customer}, "Issue": {new_issue}, "Status": {update_status}}} 
-            service_tickets.update(update_status)
+            service_tickets[update_ticket]["Status"] = update_status
+            print("Ticket updated successfully!")
     elif user_input == 3:
-        for display in service_tickets:
-            print(f"\n{display}")
-    elif user_input == 4:
-        print(service_tickets.sort())
+        for ticket_id, data in service_tickets.items():
+            print(f"\n{ticket_id} {data}")
     else:
         print("Thank you for using the Customer Service Database.\nGoodbye")
         break
